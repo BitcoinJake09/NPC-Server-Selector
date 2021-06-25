@@ -1,0 +1,7 @@
+api-version: 1.16
+name: NpcSs
+version: 1.0
+author: The NpcSs Dev Team
+main: com.npcss.npcss.NpcSs
+description: The NpcSs Open Source Project
+commands:
