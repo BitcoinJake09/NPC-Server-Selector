@@ -11,8 +11,8 @@ example config:
 
 for self compilation:
 
-git clone https://github.com/BitcoinJake09/NPC-Server-Selector
-cd NPC-Server-Selector
-mvn clean compile assembly:single
+$ git clone https://github.com/BitcoinJake09/NPC-Server-Selector
+$ cd NPC-Server-Selector
+$ mvn clean compile assembly:single
 
 and jar would be found in target folder, place in servers plugins folder and then configure the config.json in NpcSs folder in plugins, if you have not ran plugin before you can create the folder and put config.json in it.
