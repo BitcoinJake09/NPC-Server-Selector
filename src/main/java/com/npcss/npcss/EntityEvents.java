@@ -91,10 +91,9 @@ public class EntityEvents implements Listener {
     if (event.getRightClicked().getType().equals(EntityType.VILLAGER)) {
       //event.setCancelled(true);
     npcSs.serverList = new ArrayList<>();
-    npcSs.serverList.add(new server(new ItemStack(Material.OBSIDIAN, 1), "Anarchy"));
-    npcSs.serverList.add(new server(new ItemStack(Material.EMERALD, 1), "EmeraldQuest"));
-    npcSs.serverList.add(new server(new ItemStack(Material.GLOWSTONE, 1), "SatoshiQuest"));
-    npcSs.serverList.add(new server(new ItemStack(Material.SEA_LANTERN, 1), "LbryQuest")); 
+for (int i = 0; i < npcSs.BungeeServers.size(); i++) {
+    npcSs.serverList.add(new server(new ItemStack(npcSs.BungeeServers.get(i).material, 1), npcSs.BungeeServers.get(i).name));
+    }
       Inventory serverInventory = Bukkit.getServer().createInventory(null, InventoryType.ENDER_CHEST, "Server List");
       for (int i = 0; i < npcSs.serverList.size(); i++) {
         int inventoryStock = npcSs.SERVER_COUNT;
@@ -125,7 +124,8 @@ public class EntityEvents implements Listener {
         // player buys
         final ItemStack clicked = event.getCurrentItem();
         if (clicked != null && clicked.getType() != Material.AIR) {
-	//System.out.println("[NpcSs Test] Test 1: ");
+	System.out.println("[NpcSs Test] ItemName: " + clicked.getType().name());
+	
         ItemMeta meta = event.getCurrentItem().getItemMeta();
 	ArrayList<String> sendToServerName = new ArrayList<String>(meta.getLore());
 	String FinalServerName = sendToServerName.get(0);

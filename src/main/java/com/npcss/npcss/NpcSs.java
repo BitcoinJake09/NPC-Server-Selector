@@ -63,6 +63,7 @@ public class NpcSs extends JavaPlugin implements Listener {
 
   public boolean maintenance_mode = false;
   ArrayList<server> serverList;
+  public static ArrayList<bungeeServer> BungeeServers;
   public static double NPC_X = 0.0;
   public static double NPC_Y = 0.0;
   public static double NPC_Z = 0.0;
@@ -84,6 +85,7 @@ public class NpcSs extends JavaPlugin implements Listener {
         saveDefaultConfig();
         System.out.println("[NpcSs] config file does not exist. creating default.");
       }
+      BungeeServers = new ArrayList<>();
   	loadJSON();
 	loadNPC();
       // creates scheduled timers (update balances, etc)
@@ -168,8 +170,17 @@ public void loadNPC() {
    try {
    	
    	JSONObject configDataObj = (JSONObject) tConfig.get("config");
-	//String tmpAdminUUID = (String) configDataObj.get("ADMIN_UUID") != null ? (String) configDataObj.get("ADMIN_UUID").toString() : null;    
-	//ADMIN_UUID = UUID.fromString(tmpAdminUUID);
+   	JSONObject serverJsons = (JSONObject) configDataObj.get("SERVER1");
+	int x = 1;   	
+	while (serverJsons != null) {
+	String tNAME = (String) serverJsons.get("NAME") != null ? serverJsons.get("NAME").toString() : null;
+	String tIP = (String) serverJsons.get("IP") != null ? serverJsons.get("IP").toString() : null;
+	int tPORT = (String) serverJsons.get("PORT") != null ? Integer.parseInt(serverJsons.get("PORT").toString()) : null;
+	String tMat = (String) serverJsons.get("MATERIAL") != null ? serverJsons.get("MATERIAL").toString() : null;
+   	BungeeServers.add(new bungeeServer(tNAME, tIP, tPORT, tMat));
+   	x = x+1;
+	serverJsons = (JSONObject) configDataObj.get("SERVER" + x);
+   	}
 	String tNPC_X = (String) configDataObj.get("NPC_X") != null ? configDataObj.get("NPC_X").toString() : null;
 	NPC_X = Double.parseDouble(tNPC_X);            
 	String tNPC_Y = (String) configDataObj.get("NPC_Y") != null ? configDataObj.get("NPC_Y").toString() : null;              
@@ -189,8 +200,6 @@ public void loadNPC() {
       System.out.println("[NpcSs] [fatal] plugin enable failed to get config.json");
     }
   }
- 
- 
  
   public static void announce(final String message) {
     for (Player player : Bukkit.getOnlinePlayers()) {
