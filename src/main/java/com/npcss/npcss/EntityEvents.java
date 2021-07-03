@@ -135,6 +135,7 @@ for (int i = 0; i < npcSs.BungeeServers.size(); i++) {
   // Player player = Iterables.getFirst(Bukkit.getOnlinePlayers(), null);
   // Else, specify them
   npcSs.sendPlayerOffToServer(player, FinalServerName);
+  event.setCancelled(true);  //cancel block drop?
 	//player.sendPluginMessage(this, "BungeeCord", out.toByteArray());
 	//ServerCommand(player, sendToServerName);
 
